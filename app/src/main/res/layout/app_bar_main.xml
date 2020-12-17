@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -12,15 +13,17 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
 
-        <androidx.appcompat.widget.Toolbar
+       <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/white"
+            android:background="@android:color/holo_blue_dark"
             android:elevation="4dp"
+            app:title="@string/app_name"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-
+            app:titleMarginStart="40dp"
+             app:logo="@drawable/ic_baseline_menu_24"
             app:layout_scrollFlags="scroll|enterAlways"/>
 
 
@@ -28,11 +31,12 @@
         android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
         android:background="@color/color_tab"
+
         android:layout_height="wrap_content"
         app:tabMode="fixed" />
 </com.google.android.material.appbar.AppBarLayout>
 
 
-    <include layout="@layout/content_main"/>
+    <include layout="@layout/content_main" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
