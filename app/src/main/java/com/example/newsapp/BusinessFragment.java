@@ -89,7 +89,7 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
         mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
 
 
-
+           initializeLoader(isConnected());
         mAdapter = new NewsAdapter(new ArrayList<News>(),getActivity());
 
         mRecyclerView.setAdapter(mAdapter);
