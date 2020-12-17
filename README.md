@@ -13,8 +13,16 @@ SwipeRefreshLayout
 
 
 RecyclerView
+
+
 Fragment with ViewPager
+
+
 Loader
+
+
 Guardian API
+
+
 
 
