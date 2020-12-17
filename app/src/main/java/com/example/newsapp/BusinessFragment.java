@@ -32,18 +32,14 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
     private static final String LOG_TAG = BusinessFragment.class.getName();
 
     private static final int LOADER_NUMBER=1;
-    //
-    //  /** Adapter for the list of news */
+
     private NewsAdapter mAdapter;
-    //
-    //  /** TextView that is displayed when the recycler view is empty */
+
     private TextView mEmptyStateTextView;
     //
-    //  /** Loading indicator that is displayed before the first load is completed */
+
     private View mLoadingIndicator;
-    //
-    //  /** The {@link SwipeRefreshLayout} that detects swipe gestures and
-    // * triggers callbacks in the app.
+
     // */
     private SwipeRefreshLayout mSwipeRefreshLayout;
     //
@@ -64,18 +60,18 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
         mRecyclerView.setHasFixedSize(true);
 //
 
-        //      // Set the layoutManager on the {@link RecyclerView}
+
         mRecyclerView.setLayoutManager(layoutManager);
 
-        // Find the SwipeRefreshLayout
+
         mSwipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh_layout);
-        // Set the color scheme of the SwipeRefreshLayout
+
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.swipe_color_1),
                 getResources().getColor(R.color.swipe_color_2),
                 getResources().getColor(R.color.swipe_color_3),
                 getResources().getColor(R.color.swipe_color_4));
 
-        // Set up OnRefreshListener that is invoked when the user performs a swipe-to-refresh gesture.
+
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -86,21 +82,18 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
                         Toast.LENGTH_SHORT).show();
             }
         });
-        // Find the loading indicator from the layout
+
         mLoadingIndicator = rootView.findViewById(R.id.loading_indicator);
 
-        // Find the empty view from the layout and set it on the new recycler view
+
         mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
 
 
-        initializeLoader(isConnected());
-        // Create a new adapter that takes an empty list of news as input
+
         mAdapter = new NewsAdapter(new ArrayList<News>(),getActivity());
 
-        // Set the adapter on the {@link recyclerView}
         mRecyclerView.setAdapter(mAdapter);
 
-        // Check for network connectivity and initialize the loader
 
 
         return rootView;
@@ -137,13 +130,11 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
     }
     private void restartLoader(boolean isConnected) {
         if (isConnected) {
-            // Get a reference to the LoaderManager, in order to interact with loaders.
+
             LoaderManager loaderManager = getLoaderManager();
             // Restart the loader with the NEWS_LOADER_ID
             loaderManager.restartLoader(LOADER_NUMBER, null, this);
-        } else {
-            // Otherwise, display error
-            // First, hide loading indicator so error message will be visible
+
             mLoadingIndicator.setVisibility(View.GONE);
             // Update empty state with no connection error message and image
             mEmptyStateTextView.setVisibility(View.VISIBLE);
@@ -166,6 +157,11 @@ public class BusinessFragment extends Fragment implements LoaderManager.LoaderCa
         // If there is a valid list of {@link News}, then add them to the adapter's
         // data set. This will trigger the recyclerView to update.
         if (newsData != null && !newsData.isEmpty()) {
+           for(int i=0;i<newsData.size();i++){
+              News current=newsData.get(i);
+             current.setSection("Business");
+            }
+
             mAdapter.addAll(newsData);
 
         }
