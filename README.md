@@ -3,8 +3,15 @@
 Features
 
 DrawerLayout
+
+
 Navigation View
+
+
 SwipeRefreshLayout
+
+
+
 RecyclerView
 Fragment with ViewPager
 Loader
