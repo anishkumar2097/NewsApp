@@ -34,18 +34,15 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
 
   private static final int LOADER_NUMBER=1;
   //
-  //  /** Adapter for the list of news */
+
   private NewsAdapter mAdapter;
   //
-  //  /** TextView that is displayed when the recycler view is empty */
+
   private TextView mEmptyStateTextView;
   //
-  //  /** Loading indicator that is displayed before the first load is completed */
+
   private View mLoadingIndicator;
-  //
-  //  /** The {@link SwipeRefreshLayout} that detects swipe gestures and
-  // * triggers callbacks in the app.
-  // */
+
   private SwipeRefreshLayout mSwipeRefreshLayout;
 //
 public static final String NEWS_REQUEST_URL = "https://content.guardianapis.com/search?show-fields=trailText,headline,thumbnail&api-key=31aaf3ce-31cc-4a14-8c2a-a26c3a136453";
@@ -65,7 +62,7 @@ public static final String NEWS_REQUEST_URL = "https://content.guardianapis.com/
     mRecyclerView.setHasFixedSize(true);
 //
 
-    //      // Set the layoutManager on the {@link RecyclerView}
+
     mRecyclerView.setLayoutManager(layoutManager);
 
     // Find the SwipeRefreshLayout
@@ -76,7 +73,7 @@ public static final String NEWS_REQUEST_URL = "https://content.guardianapis.com/
             getResources().getColor(R.color.swipe_color_3),
             getResources().getColor(R.color.swipe_color_4));
 
-    // Set up OnRefreshListener that is invoked when the user performs a swipe-to-refresh gesture.
+
     mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
@@ -87,21 +84,20 @@ public static final String NEWS_REQUEST_URL = "https://content.guardianapis.com/
                 Toast.LENGTH_SHORT).show();
       }
     });
-    // Find the loading indicator from the layout
+
     mLoadingIndicator = rootView.findViewById(R.id.loading_indicator);
 
-    // Find the empty view from the layout and set it on the new recycler view
     mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
 
 
     initializeLoader(isConnected());
-    // Create a new adapter that takes an empty list of news as input
+
     mAdapter = new NewsAdapter(new ArrayList<News>(),getActivity());
 
-    // Set the adapter on the {@link recyclerView}
+
     mRecyclerView.setAdapter(mAdapter);
 
-    // Check for network connectivity and initialize the loader
+
 
 
     return rootView;
@@ -139,15 +135,14 @@ public static final String NEWS_REQUEST_URL = "https://content.guardianapis.com/
   }
   private void restartLoader(boolean isConnected) {
     if (isConnected) {
-      // Get a reference to the LoaderManager, in order to interact with loaders.
+
       LoaderManager loaderManager = getLoaderManager();
-      // Restart the loader with the NEWS_LOADER_ID
+
       loaderManager.restartLoader(LOADER_NUMBER, null, this);
     } else {
-      // Otherwise, display error
-      // First, hide loading indicator so error message will be visible
+
       mLoadingIndicator.setVisibility(View.GONE);
-      // Update empty state with no connection error message and image
+
       mEmptyStateTextView.setVisibility(View.VISIBLE);
       mEmptyStateTextView.setText("NO INTERNET CONNECTION");
       //  mEmptyStateTextView.setCompoundDrawablesWithIntrinsicBounds(Constants.DEFAULT_NUMBER,
@@ -165,14 +160,9 @@ public static final String NEWS_REQUEST_URL = "https://content.guardianapis.com/
     mEmptyStateTextView.setVisibility(View.GONE);
     mEmptyStateTextView.setText("no news found");
 
-    // If there is a valid list of {@link News}, then add them to the adapter's
-    // data set. This will trigger the recyclerView to update.
     if (newsData != null && !newsData.isEmpty()) {
       mAdapter.addAll(newsData);
-
     }
-
-    // Hide the swipe icon animation when the loader is done refreshing the data
     mSwipeRefreshLayout.setRefreshing(false);
   }
   @Override
