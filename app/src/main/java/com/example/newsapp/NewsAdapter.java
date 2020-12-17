@@ -26,7 +26,7 @@ import java.util.List;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
     private Context mContext;
     private List<News> mNewsList;
-   // private SharedPreferences sharedPrefs;
+
 
 private String TAG=NewsAdapter.class.getSimpleName();
     public NewsAdapter(List<News>newsList,Context context) {
@@ -68,8 +68,7 @@ private String TAG=NewsAdapter.class.getSimpleName();
             holder.mAuthorTextView.setVisibility(View.VISIBLE);
             holder.mAuthorTextView.setText(currentNews.getAuthor());
         }
-        // Get string of the trailTextHTML and convert Html text to plain text
-        // and set the plain text on the textView
+
         if(currentNews.getTrailTextHtml()!=null){
         holder.trailTextView.setText(Html.fromHtml(Html.fromHtml(currentNews.getTrailTextHtml()).toString()));}
 
@@ -86,27 +85,40 @@ private String TAG=NewsAdapter.class.getSimpleName();
         holder.mShareImageView.setOnClickListener(new View.OnClickListener() {
                                                       @Override
                                                       public void onClick(View v) {
-                                                      }
-                                                  });
-                // holder.SetAuthor(News.getAuthor());
-                // You can set click listeners to individual items in the viewHolder here
-                // make sure you pass down the listener or make the Data members of the viewHolder public
+                                                          Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                                                          shareIntent.setType("text/plain");
+                                                    //      shareIntent.putExtra(Intent.EXTRA_TEXT, currentNews.getUrl());
+                                                     //     mContext.startActivity(Intent.createChooser(shareIntent, "Share link using"));
 
-                // Set an OnClickListener to open a website with more information about the selected article
+                                                          shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+                                                                    currentNews.getUrl());
+                                                          mContext.startActivity(Intent.createChooser(shareIntent,
+                                                                  "share link via"));
+                                                      }
+
+                                                  });
+
+        holder.mCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Uri newsUri = Uri.parse(currentNews.getUrl());
+                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, newsUri);
+                mContext.startActivity(websiteIntent);
+            }
+        });
+
+        // holder.SetAuthor(News.getAuthor());
+
 
     }
-    /**
-     *  Clear all data (a list of {@link News} objects)
-     */
+
     public void clearAll() {
         mNewsList.clear();
         notifyDataSetChanged();
     }
 
-    /**
-     * Add  a list of {@link News}
-     * @param newsList is the list of news, which is the data source of the adapter
-     */
+
     public void addAll(List<News> newsList) {
         mNewsList.clear();
         mNewsList.addAll(newsList);
