@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+       mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
         // Find the view pager that will allow the user to swipe between fragments
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        // Find the view pager that will allow the user to swipe between fragments
+
         mViewPager = findViewById(R.id.view_pager);
         mTabLayout = findViewById(R.id.sliding_tabs);
         mTabLayout.setupWithViewPager(mViewPager);
