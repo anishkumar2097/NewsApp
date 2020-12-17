@@ -45,9 +45,7 @@ public class SportFragment extends Fragment implements LoaderManager.LoaderCallb
     //  /** Loading indicator that is displayed before the first load is completed */
     private View mLoadingIndicator;
     //
-    //  /** The {@link SwipeRefreshLayout} that detects swipe gestures and
-    // * triggers callbacks in the app.
-    // */
+
     private SwipeRefreshLayout mSwipeRefreshLayout;
     //
     public static final String NEWS_REQUEST_URL = "https://content.guardianapis.com/search?show-fields=trailText,headline,thumbnail&api-key=31aaf3ce-31cc-4a14-8c2a-a26c3a136453";
@@ -169,6 +167,12 @@ public class SportFragment extends Fragment implements LoaderManager.LoaderCallb
         // If there is a valid list of {@link News}, then add them to the adapter's
         // data set. This will trigger the recyclerView to update.
         if (newsData != null && !newsData.isEmpty()) {
+
+            for(int i=0;i<newsData.size();i++){
+                News current=newsData.get(i);
+                current.setSection("Sport");
+            }
+
             mAdapter.addAll(newsData);
 
         }
