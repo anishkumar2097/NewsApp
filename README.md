@@ -1,16 +1,12 @@
 # The News-An app which shows news related to business,sport and general news.
 
+## Features
 
-Features
-
-DrawerLayout
-
+ DrawerLayout
 
 Navigation View
 
-
 SwipeRefreshLayout
-
 
 CardView
 
@@ -26,7 +22,7 @@ Loader
 Guardian API
 
 
-Screenshot
+### Screenshot
 
 
 ![Screenshot_20201217-193804_The News](https://user-images.githubusercontent.com/65516859/102535329-13873200-40ce-11eb-9f8c-c5426cafb3bf.jpg)
@@ -40,3 +36,4 @@ Screenshot
 
 
 
+  
