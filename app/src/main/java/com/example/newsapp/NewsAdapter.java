@@ -19,20 +19,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.newsapp.utils.NewsLoader;
+import com.example.newsapp.utils.utility;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
     private Context mContext;
     private List<News> mNewsList;
+    private String TAG=NewsAdapter.class.getSimpleName();
 
-
-private String TAG=NewsAdapter.class.getSimpleName();
-    public NewsAdapter(List<News>newsList,Context context) {
+    public NewsAdapter(Context context) {
 
         mContext = context;
-        mNewsList = newsList;
+
     }
     @Override
     public NewsAdapter.NewsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -44,6 +45,10 @@ private String TAG=NewsAdapter.class.getSimpleName();
 
     @Override
     public int getItemCount() {
+
+        if(mNewsList==null){
+            return 0;
+        }
         return mNewsList.size();
     }
 
@@ -101,10 +106,14 @@ private String TAG=NewsAdapter.class.getSimpleName();
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+              String url= currentNews.getUrl();
+           //    Uri newsUri = Uri.parse(currentNews.getUrl());
+                jumpToWebView(currentNews.getUrl(),currentNews);
 
-                Uri newsUri = Uri.parse(currentNews.getUrl());
-                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, newsUri);
-                mContext.startActivity(websiteIntent);
+             //   Intent websiteIntent = new Intent(Intent.ACTION_VIEW, newsUri);
+               // mContext.startActivity(websiteIntent);
+
+
             }
         });
 
@@ -113,19 +122,32 @@ private String TAG=NewsAdapter.class.getSimpleName();
 
     }
 
+    private void jumpToWebView( String newsUrl, News currentNews) {
+        Intent i=new Intent(mContext, WebViewActivity.class);
+        i.putExtra("muri",newsUrl);
+        if( utility.isInternetAvailable(mContext)){
+            mContext.startActivity(i);
+        }
+    }
+
     public void clearAll() {
-        mNewsList.clear();
-        notifyDataSetChanged();
+        if(mNewsList!=null)
+            mNewsList.clear();
+            notifyDataSetChanged();
     }
 
 
     public void addAll(List<News> newsList) {
-        mNewsList.clear();
-        mNewsList.addAll(newsList);
-        notifyDataSetChanged();
+     //  if(mNewsList!=null){
+
+
+         //   mNewsList.clear();}
+        mNewsList = newsList;
+            notifyDataSetChanged();
+
     }
 
-    // This is your ViewHolder class that helps to populate data to the view
+
   public  class NewsHolder extends RecyclerView.ViewHolder {
            private TextView mTitleTextView;
            private TextView  mSectionView;
@@ -147,24 +169,7 @@ private String TAG=NewsAdapter.class.getSimpleName();
             this.mShareImageView=itemView.findViewById(R.id.share_image_card);
         }
 
-  //   public  void bind(String title,String section,String author,String date,String) //public void SetTitle(String title){
-        //    mTitleTextView.setText(News.getTitle());
-        //}
-        //public void SetSection(String section){
-          //  mSectionView.setText(News.getSection());
-        //}
-        //public void SetAuthor(String author) {
-          //  if (author!= null) {
-            //    mAuthorTextView.setText(News.getAuthor());}
-            //else{
-              //    mAuthorTextView.setVisibility(View.GONE);
-                //}
 
-            //}
-
-        //public void SetDate(String Date){
-          //  mDateTextView.setText(News.getDate());
-        //}
 
 
 

@@ -21,9 +21,7 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
     }
 
 
-    @Nullable  /**
-     * This is on a background thread.
-     */
+
     @Override
     public List<News> loadInBackground() {
          if(mUrl==null){
