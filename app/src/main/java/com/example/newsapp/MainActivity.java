@@ -13,9 +13,14 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.newsapp.fragment.BusinessFragment;
 import com.example.newsapp.fragment.CategoryFragmentPagerAdapter;
+import com.example.newsapp.fragment.HomeFragment;
+import com.example.newsapp.fragment.SportFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -87,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        displaySelectedScreen(item.getItemId());
 
        Toast.makeText(getApplicationContext(),"sending intent",Toast.LENGTH_SHORT).show();
        DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -94,5 +100,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    private void displaySelectedScreen(int itemId) {
+        Fragment fragment = null;
+        switch (itemId) {
+            case R.id.nav_home:
+                fragment = new HomeFragment();
+                break;
+            case R.id.nav_business:
+                fragment = new BusinessFragment();
+                break;
+            case R.id.nav_sport:
+                fragment = new SportFragment();
+                break;
+        }
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frame_layout, fragment);
+            ft.commit();
+        }
 
     }
+}
