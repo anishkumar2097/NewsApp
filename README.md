@@ -1,6 +1,7 @@
-# The News-An app which shows news related to business,sport and general news.
+# The News-An app which shows news related to business,sport and general news.News article can be shared and read via web view
 
 ## Features
+
 
  DrawerLayout
 
@@ -17,6 +18,8 @@ Fragment with ViewPager
 
 
 Loader
+
+WebView
 
 
 Guardian API
